@@ -1,0 +1,55 @@
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12"><br></div>
+    <div class="col-lg-6">
+      Search : <input type="text" (keyup)="updateSearch($event.target.value)" />
+    </div>
+    <div class="col-lg-12"><br></div>
+    <div class="col-lg-12 search-section">
+
+      <div class="row" *ngIf="filteredData">
+        <div class="col-md-4" *ngFor="let news of filteredData">
+          <div class="card mb-4 shadow-sm" [class.selected]="news === selectedNews">
+            <div class="news-thubnail">
+                <img src="{{news.urlToImage == null ? 'http://lamp.oja.go.th/MediaNewsIMG/default-image.png' : news.urlToImage}}" class="img-fluid">
+            </div>
+            <div class="card-body" style="height: 12rem;">
+              <p class="card-text">{{news.title}}</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group" >
+                  <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onSelect(news)"
+                    routerLink="/detail/{{news.title}}">View</button>
+                </div>
+                <small class="text-muted">{{news.publishedAt | fromNow}}</small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let news of newList | paginate: { itemsPerPage: 9, currentPage: p }">
+      <div class="card mb-4 shadow-sm" [class.selected]="news === selectedNews">
+        <div class="news-thubnail">
+            <img src="{{news.urlToImage == null ? 'http://lamp.oja.go.th/MediaNewsIMG/default-image.png' : news.urlToImage}}" class="img-fluid">
+        </div>
+        <div class="card-body" style="height: 12rem;">
+          <p class="card-text">{{news.title}}</p>
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-sm btn-outline-secondary" (click)="onSelect(news)"
+                routerLink="/detail/{{news.title}}">View</button>
+            </div>
+            <small class="text-muted">{{news.publishedAt | fromNow}}</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="text-align: center; margin-left: auto; margin-right: auto;">
+    <pagination-controls (pageChange)="p = $event" style="margin-left: auto; margin-right: auto;"></pagination-controls>
+  </div>
+</div>

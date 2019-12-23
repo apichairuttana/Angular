@@ -1,0 +1,27 @@
+<div class="news-image">
+    <img src="{{news.urlToImage == null ? 'http://lamp.oja.go.th/MediaNewsIMG/default-image.png' : news.urlToImage}}" class="img-fluid">
+  </div>
+  <div class="content">
+    <div class="container" style="padding-top: 24px; height: 100%;">
+      <div class="row">
+        <div class="col-lg-12" *ngIf="news">
+          <div class="news-title">
+            <h3>{{news.title}}</h3>
+          </div>
+          <div class="news-author">
+            <label *ngIf="news.author; else noAuthor">Author: {{news.author}}</label>
+            <ng-template #noAuthor>
+              <label>Author: -</label>
+            </ng-template>
+          </div>
+          <div class="news-time">
+            <p>{{news.publishedAt | fromNow}}</p>
+          </div>
+          <div class="news-detail">
+            <p>{{news.description == null ? 'No description' : news.description}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
